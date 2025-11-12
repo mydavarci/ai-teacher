@@ -5,6 +5,7 @@ An interactive, AI-powered code training platform that helps you master JavaScri
 ## Features ✨
 
 - **Built-in IDE Interface**: Write and test your code directly in a professional Monaco Editor (VS Code's editor)
+- **Real AI Integration**: Powered by OpenAI GPT-4, Anthropic Claude, or Google Gemini
 - **AI-Generated Challenges**: Dynamic challenges tailored to your selected topic and difficulty level
 - **12 Comprehensive Topics**: From variables and functions to async JavaScript and OOP
 - **3 Difficulty Levels**: Easy, Medium, and Hard challenges to match your skill level
@@ -12,6 +13,7 @@ An interactive, AI-powered code training platform that helps you master JavaScri
 - **Continuous Learning**: Practice as many challenges as you want until you're ready to stop
 - **Hints System**: Get helpful hints when you need a nudge in the right direction
 - **Modern UI**: Beautiful, responsive design with dark mode
+- **Flexible Configuration**: Easy-to-use settings UI with API key management
 
 ## Topics Covered 📚
 
@@ -34,6 +36,10 @@ An interactive, AI-powered code training platform that helps you master JavaScri
 
 - Node.js (v18 or higher)
 - npm or yarn
+- An API key from one of these providers:
+  - [OpenAI](https://platform.openai.com/api-keys) (GPT-4, GPT-3.5)
+  - [Anthropic](https://console.anthropic.com/settings/keys) (Claude 3.5 Sonnet)
+  - [Google AI](https://makersuite.google.com/app/apikey) (Gemini 1.5 Pro)
 
 ### Installation
 
@@ -48,23 +54,61 @@ An interactive, AI-powered code training platform that helps you master JavaScri
    npm install
    ```
 
-3. **Start the development server**
+3. **Configure AI API (Choose one method)**
+
+   **Method 1: Using the Settings UI (Recommended)**
+   - Start the app and click the "Settings" button in the top-right
+   - Select your AI provider (OpenAI, Anthropic, or Google Gemini)
+   - Enter your API key
+   - Click "Test Connection" to verify
+   - Click "Save & Close"
+
+   **Method 2: Using Environment Variables**
+   - Copy `.env.example` to `.env`
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and add your API key:
+     ```env
+     # For OpenAI
+     VITE_OPENAI_API_KEY=sk-...
+     VITE_DEFAULT_PROVIDER=openai
+
+     # For Anthropic Claude
+     VITE_ANTHROPIC_API_KEY=sk-ant-...
+     VITE_DEFAULT_PROVIDER=anthropic
+
+     # For Google Gemini
+     VITE_GEMINI_API_KEY=...
+     VITE_DEFAULT_PROVIDER=gemini
+     ```
+
+4. **Start the development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to `http://localhost:3000`
 
 ## How to Use 🎯
 
-1. **Select a Topic**: Choose from 12 JavaScript topics based on what you want to learn
-2. **Pick Difficulty**: Select Easy, Medium, or Hard based on your comfort level
-3. **Read the Challenge**: Carefully read the AI-generated challenge instruction
-4. **Write Your Code**: Use the built-in editor to write your solution
-5. **Submit for Evaluation**: Click "Submit Code" to get AI feedback
-6. **Learn from Feedback**: Read the personalized feedback and suggestions
-7. **Continue or Change**: Move to the next challenge, try again, or change topics
+1. **Configure AI**: Click the "Settings" button and add your API key (first-time setup only)
+2. **Select a Topic**: Choose from 12 JavaScript topics based on what you want to learn
+3. **Pick Difficulty**: Select Easy, Medium, or Hard based on your comfort level
+4. **Read the Challenge**: Carefully read the AI-generated challenge instruction
+5. **Write Your Code**: Use the built-in editor to write your solution
+6. **Submit for Evaluation**: Click "Submit Code" to get AI feedback
+7. **Learn from Feedback**: Read the personalized feedback and suggestions
+8. **Continue or Change**: Move to the next challenge, try again, or change topics
+
+### Supported AI Providers
+
+| Provider | Models | Best For |
+|----------|--------|----------|
+| **OpenAI** | GPT-4, GPT-4 Turbo, GPT-3.5 | Most reliable, excellent code generation |
+| **Anthropic** | Claude 3.5 Sonnet, Claude 3 Opus | Detailed feedback, very conversational |
+| **Google Gemini** | Gemini 1.5 Pro, Gemini 1.5 Flash | Fast responses, good for quick iterations |
 
 ## Project Structure 📁
 
@@ -98,40 +142,22 @@ ai-teacher/
 - **Code Editor**: Monaco Editor (VS Code's editor)
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
-- **AI Integration**: Mock service (ready for real AI API integration)
+- **AI Integration**: OpenAI API, Anthropic API, Google Generative AI
+- **State Management**: React Hooks + localStorage
 
-## Customization 🛠️
+## Configuration 🛠️
 
-### Integrating a Real AI API
+### API Key Security
 
-The current implementation uses mock AI responses. To integrate a real AI service (like OpenAI, Claude, or Google Gemini):
+Your API key is:
+- Stored locally in your browser's localStorage
+- Never sent to any server except your chosen AI provider
+- Can be cleared anytime through the settings
 
-1. Open `src/services/aiService.ts`
-2. Replace the `mockAICall` and `mockAIEvaluation` methods with actual API calls
-3. Add your API key to the service
-
-Example for OpenAI:
-
-```typescript
-async generateChallenge(topic: Topic, difficulty: Difficulty): Promise<Challenge> {
-  const prompt = this.buildChallengePrompt(topic, difficulty);
-
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: prompt }]
-    })
-  });
-
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content);
-}
-```
+For production deployments, consider:
+- Using a backend proxy to keep API keys server-side
+- Implementing rate limiting
+- Adding user authentication
 
 ### Adding New Topics
 
