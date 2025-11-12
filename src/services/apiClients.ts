@@ -109,7 +109,7 @@ export class GeminiClient extends AIClient {
   private client: GoogleGenerativeAI;
   private model: string;
 
-  constructor(apiKey: string, model: string = 'gemini-1.5-pro') {
+  constructor(apiKey: string, model: string = 'gemini-2.0-flash-exp') {
     super();
     this.client = new GoogleGenerativeAI(apiKey);
     this.model = model;
@@ -169,7 +169,7 @@ export function createAIClient(config: AIConfig): AIClient {
     case 'anthropic':
       return new AnthropicClient(config.apiKey, config.model || 'claude-3-5-sonnet-20241022');
     case 'gemini':
-      return new GeminiClient(config.apiKey, config.model || 'gemini-1.5-pro');
+      return new GeminiClient(config.apiKey, config.model || 'gemini-2.0-flash-exp');
     default:
       throw new Error(`Unsupported AI provider: ${config.provider}`);
   }

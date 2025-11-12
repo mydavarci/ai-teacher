@@ -39,7 +39,7 @@ An interactive, AI-powered code training platform that helps you master JavaScri
 - An API key from one of these providers:
   - [OpenAI](https://platform.openai.com/api-keys) (GPT-4, GPT-3.5)
   - [Anthropic](https://console.anthropic.com/settings/keys) (Claude 3.5 Sonnet)
-  - [Google AI](https://makersuite.google.com/app/apikey) (Gemini 1.5 Pro)
+  - [Google AI](https://makersuite.google.com/app/apikey) (Gemini 2.0 Flash)
 
 ### Installation
 
@@ -108,7 +108,7 @@ An interactive, AI-powered code training platform that helps you master JavaScri
 |----------|--------|----------|
 | **OpenAI** | GPT-4, GPT-4 Turbo, GPT-3.5 | Most reliable, excellent code generation |
 | **Anthropic** | Claude 3.5 Sonnet, Claude 3 Opus | Detailed feedback, very conversational |
-| **Google Gemini** | Gemini 1.5 Pro, Gemini 1.5 Flash | Fast responses, good for quick iterations |
+| **Google Gemini** | Gemini 2.0 Flash, Gemini 1.5 Pro | Fast responses, good for quick iterations |
 
 ## Project Structure 📁
 

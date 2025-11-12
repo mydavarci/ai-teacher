@@ -51,9 +51,9 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
     {
       id: 'gemini' as AIProvider,
       name: 'Google Gemini',
-      description: 'Gemini 1.5 Pro, Gemini 1.5 Flash',
-      defaultModel: 'gemini-1.5-pro',
-      models: ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-pro'],
+      description: 'Gemini 2.0 Flash, Gemini Pro',
+      defaultModel: 'gemini-2.0-flash-exp',
+      models: ['gemini-2.0-flash-exp', 'gemini-1.5-pro-latest', 'gemini-1.5-flash-latest'],
       icon: '✨',
       getKeyUrl: 'https://makersuite.google.com/app/apikey',
       docUrl: 'https://ai.google.dev/docs'
