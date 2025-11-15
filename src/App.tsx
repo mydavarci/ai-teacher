@@ -7,7 +7,7 @@ import SettingsModal from './components/SettingsModal';
 import { Topic, Difficulty, Challenge, Evaluation } from './types';
 import { AIConfig } from './types/api';
 import { aiService } from './services/aiService';
-import { Loader2, Settings, AlertCircle } from 'lucide-react';
+import { Rocket, Settings, Star, Trophy, AlertCircle } from 'lucide-react';
 
 type AppState = 'topic-selection' | 'challenge' | 'evaluation';
 
@@ -26,10 +26,29 @@ function App() {
   const [isConfigured, setIsConfigured] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Progress tracking
+  const [totalStarGems, setTotalStarGems] = useState(0);
+  const [challengesCompleted, setChallengesCompleted] = useState(0);
+
   // Check if AI is configured on mount
   useEffect(() => {
     setIsConfigured(aiService.isConfigured());
+    // Load progress from localStorage
+    const savedGems = localStorage.getItem('starGems');
+    const savedCompleted = localStorage.getItem('challengesCompleted');
+    if (savedGems) setTotalStarGems(parseInt(savedGems));
+    if (savedCompleted) setChallengesCompleted(parseInt(savedCompleted));
   }, []);
+
+  // Save progress to localStorage
+  const updateProgress = (gemsEarned: number) => {
+    const newTotal = totalStarGems + gemsEarned;
+    const newCompleted = challengesCompleted + 1;
+    setTotalStarGems(newTotal);
+    setChallengesCompleted(newCompleted);
+    localStorage.setItem('starGems', newTotal.toString());
+    localStorage.setItem('challengesCompleted', newCompleted.toString());
+  };
 
   // Start a new challenge when topic is selected
   const handleTopicSelect = async (topic: Topic, difficulty: Difficulty) => {
@@ -93,6 +112,11 @@ function App() {
       );
       setEvaluation(result);
       setState('evaluation');
+
+      // Award star gems if correct
+      if (result.isCorrect) {
+        updateProgress(50);
+      }
     } catch (error: any) {
       console.error('Error evaluating code:', error);
       setError(error.message || 'Failed to evaluate code. Please check your API configuration.');
@@ -145,14 +169,28 @@ function App() {
     setError(null);
   };
 
+  // Calculate cadet rank based on star gems
+  const getCadetRank = () => {
+    if (totalStarGems >= 500) return { rank: 'Mission Commander', icon: '🚀', color: 'text-energetic-orange' };
+    if (totalStarGems >= 250) return { rank: 'Space Cadet', icon: '⭐', color: 'text-sunshine-yellow' };
+    return { rank: 'Beginner Explorer', icon: '🌟', color: 'text-friendly-green' };
+  };
+
+  const cadetRank = getCadetRank();
+
   // Render loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-primary-400 animate-spin mx-auto mb-4" />
-          <p className="text-white text-lg">Generating your challenge...</p>
-          <p className="text-gray-400 text-sm mt-2">The AI is crafting a perfect challenge for you</p>
+          <Rocket className="w-20 h-20 text-sky-blue animate-bounce-soft mx-auto mb-6" />
+          <div className="animate-spin mb-4 mx-auto w-16 h-16 text-6xl">⚙️</div>
+          <h2 className="text-deep-navy text-3xl font-playful font-bold mb-2">
+            Creating Your Challenge...
+          </h2>
+          <p className="text-gray-700 text-lg font-friendly">
+            Your AI buddy is crafting the perfect mission for you!
+          </p>
         </div>
       </div>
     );
@@ -162,7 +200,7 @@ function App() {
   const SettingsButton = () => (
     <button
       onClick={() => setShowSettings(true)}
-      className="fixed top-4 right-4 z-40 flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg border border-gray-700 transition-colors"
+      className="fixed top-4 right-4 z-40 flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-deep-navy rounded-child border-2 border-sky-blue transition-all shadow-card hover:shadow-hover font-friendly font-semibold"
       title="Configure AI API"
     >
       <Settings size={18} />
@@ -170,23 +208,55 @@ function App() {
         {isConfigured ? 'Settings' : 'Setup Required'}
       </span>
       {!isConfigured && (
-        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+        <span className="w-2 h-2 bg-energetic-orange rounded-full animate-pulse" />
       )}
     </button>
   );
 
+  // Progress Header Component
+  const ProgressHeader = () => (
+    <div className="fixed top-4 left-4 z-40 bg-white rounded-card border-3 border-playful-purple p-4 shadow-playful max-w-sm">
+      <div className="flex items-center gap-3 mb-3">
+        <Trophy className={`${cadetRank.color} animate-wiggle`} size={32} />
+        <div className="flex-1">
+          <h3 className="font-playful font-bold text-lg text-deep-navy flex items-center gap-2">
+            {cadetRank.icon} {cadetRank.rank}
+          </h3>
+          <p className="text-sm text-gray-600 font-friendly">
+            Missions Completed: {challengesCompleted}
+          </p>
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <Star className="text-sunshine-yellow fill-sunshine-yellow animate-sparkle" size={24} />
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-sm font-playful font-bold text-deep-navy">Star Gems</span>
+            <span className="text-lg font-playful font-bold text-energetic-orange">{totalStarGems} 💎</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden border-2 border-sunshine-yellow">
+            <div
+              className="bg-gradient-to-r from-sunshine-yellow to-energetic-orange h-full transition-all duration-500 animate-pulse"
+              style={{ width: `${Math.min((totalStarGems % 100), 100)}%` }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   // Error banner component
   const ErrorBanner = () => error ? (
-    <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-40 max-w-lg w-full mx-4">
-      <div className="bg-red-900/90 border border-red-500/50 rounded-lg p-4 backdrop-blur-sm">
+    <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-40 max-w-lg w-full mx-4">
+      <div className="bg-energetic-orange rounded-card p-4 border-3 border-orange-400 shadow-hover animate-slide-up">
         <div className="flex items-start gap-3">
-          <AlertCircle className="text-red-400 flex-shrink-0 mt-0.5" size={20} />
+          <AlertCircle className="text-white flex-shrink-0 mt-0.5" size={24} />
           <div className="flex-1">
-            <p className="text-red-100 text-sm">{error}</p>
+            <p className="text-white font-friendly font-semibold">{error}</p>
           </div>
           <button
             onClick={() => setError(null)}
-            className="text-red-400 hover:text-red-300"
+            className="text-white hover:text-gray-200 text-2xl font-bold"
           >
             ×
           </button>
@@ -200,6 +270,7 @@ function App() {
     return (
       <>
         <SettingsButton />
+        {challengesCompleted > 0 && <ProgressHeader />}
         <ErrorBanner />
         <TopicSelector onSelectTopic={handleTopicSelect} />
         <SettingsModal
@@ -215,12 +286,13 @@ function App() {
   return (
     <>
       <SettingsButton />
+      <ProgressHeader />
       <ErrorBanner />
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 p-4">
-        <div className="max-w-7xl mx-auto h-[calc(100vh-2rem)]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
+      <div className="min-h-screen p-4 pt-32 md:pt-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             {/* Left Panel - Challenge Instructions */}
-            <div className="flex flex-col">
+            <div className="flex flex-col min-h-[500px] lg:min-h-[calc(100vh-8rem)]">
               {currentChallenge && selectedTopic && (
                 <ChallengeView
                   challenge={currentChallenge}
@@ -236,7 +308,7 @@ function App() {
             {/* Right Panel - Code Editor / Evaluation */}
             <div className="flex flex-col gap-4">
               {/* Code Editor */}
-              <div className="flex-1 min-h-0">
+              <div className="min-h-[400px] lg:min-h-[calc(100vh-8rem)]">
                 <CodeEditor
                   code={userCode}
                   onChange={setUserCode}
@@ -249,7 +321,7 @@ function App() {
 
               {/* Evaluation Feedback */}
               {state === 'evaluation' && evaluation && (
-                <div className="max-h-[400px] overflow-y-auto">
+                <div className="animate-slide-up">
                   <EvaluationFeedback
                     evaluation={evaluation}
                     onNextChallenge={handleNextChallenge}

@@ -139,17 +139,17 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-card max-w-2xl w-full max-h-[90vh] overflow-y-auto border-4 border-sky-blue shadow-playful">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b-4 border-sky-blue bg-gradient-to-r from-sky-blue to-playful-purple">
           <div className="flex items-center gap-3">
-            <Settings className="text-primary-400" size={24} />
-            <h2 className="text-2xl font-bold text-white">AI Configuration</h2>
+            <Settings className="text-white" size={28} />
+            <h2 className="text-2xl md:text-3xl font-playful font-bold text-white">AI Configuration</h2>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-white hover:text-soft-cream transition-colors bg-white/20 rounded-child p-2 hover:bg-white/30"
           >
             <X size={24} />
           </button>
@@ -158,16 +158,16 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Info Banner */}
-          <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
-            <p className="text-blue-200 text-sm">
-              <strong>Note:</strong> Your API key is stored locally in your browser and never sent to our servers.
+          <div className="bg-sky-blue/10 border-2 border-sky-blue rounded-child p-4">
+            <p className="text-deep-navy text-sm font-friendly">
+              <strong className="font-playful">Note:</strong> Your API key is stored locally in your browser and never sent to our servers.
               It's only used to communicate directly with your chosen AI provider.
             </p>
           </div>
 
           {/* Provider Selection */}
           <div>
-            <label className="block text-sm font-semibold text-gray-300 mb-3">
+            <label className="block text-base font-playful font-bold text-deep-navy mb-3">
               Select AI Provider
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -175,15 +175,15 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
                 <button
                   key={p.id}
                   onClick={() => handleProviderChange(p.id)}
-                  className={`p-4 rounded-lg border-2 transition-all text-left ${
+                  className={`p-4 rounded-child border-2 transition-all text-left hover:shadow-card ${
                     provider === p.id
-                      ? 'border-primary-500 bg-primary-900/20'
-                      : 'border-gray-700 bg-gray-900 hover:border-gray-600'
+                      ? 'border-sky-blue bg-sky-blue/10'
+                      : 'border-gray-300 bg-white hover:border-sky-blue/50'
                   }`}
                 >
-                  <div className="text-2xl mb-2">{p.icon}</div>
-                  <div className="font-semibold text-white mb-1">{p.name}</div>
-                  <div className="text-xs text-gray-400">{p.description}</div>
+                  <div className="text-3xl mb-2">{p.icon}</div>
+                  <div className="font-playful font-bold text-deep-navy mb-1">{p.name}</div>
+                  <div className="text-xs text-gray-600 font-friendly">{p.description}</div>
                 </button>
               ))}
             </div>
@@ -191,7 +191,7 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
 
           {/* API Key Input */}
           <div>
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label className="block text-base font-playful font-bold text-deep-navy mb-2">
               API Key
             </label>
             <input
@@ -199,7 +199,7 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder={`Enter your ${selectedProvider.name} API key`}
-              className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-child text-deep-navy placeholder-gray-400 focus:outline-none focus:border-sky-blue font-friendly"
             />
             <div className="flex items-center gap-4 mt-2">
               <a
@@ -268,24 +268,24 @@ export default function SettingsModal({ isOpen, onClose, onSave }: SettingsModal
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-700">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-6 border-t-4 border-sky-blue bg-soft-cream">
           <button
             onClick={handleClear}
-            className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-gray-600 hover:text-deep-navy transition-colors font-friendly font-semibold"
           >
             Clear Configuration
           </button>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={handleTest}
               disabled={isTesting}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-3 bg-gray-300 hover:bg-gray-400 text-deep-navy rounded-child transition-all font-playful font-bold disabled:opacity-50 disabled:cursor-not-allowed border-2 border-gray-400"
             >
               {isTesting ? 'Testing...' : 'Test Connection'}
             </button>
             <button
               onClick={handleSave}
-              className="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-sky-blue to-playful-purple hover:from-blue-600 hover:to-purple-600 text-white font-playful font-bold rounded-child transition-all border-2 border-sky-blue"
             >
               Save & Close
             </button>

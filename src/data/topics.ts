@@ -3,164 +3,163 @@ import { Topic } from '../types';
 export const topics: Topic[] = [
   {
     id: 'variables',
-    title: 'Variables & Data Types',
-    description: 'Learn about var, let, const, and different data types in JavaScript',
-    icon: '📦',
+    title: 'Treasure Chests & Secret Codes',
+    description: 'Create magic backpacks and treasure chests to store your coding treasures!',
+    icon: '🎒',
     subtopics: [
-      'Variable declarations (var, let, const)',
-      'Primitive types (string, number, boolean)',
-      'Type coercion and conversion',
-      'Undefined and null',
-      'Symbols and BigInt'
+      'Magic Backpacks (let) - swap treasures anytime!',
+      'Locked Treasure Chests (const) - keep treasures safe!',
+      'Different types of treasures (words, numbers, true/false)',
+      'Empty boxes and missing treasures',
+      'Special rare treasures'
     ]
   },
   {
     id: 'operators',
-    title: 'Operators',
-    description: 'Master arithmetic, comparison, logical, and assignment operators',
+    title: 'Math Magic & Comparisons',
+    description: 'Learn to do cool math tricks and compare things like a super detective!',
     icon: '➕',
     subtopics: [
-      'Arithmetic operators',
-      'Comparison operators',
-      'Logical operators (&&, ||, !)',
-      'Assignment operators',
-      'Ternary operator'
+      'Math magic (+, -, ×, ÷)',
+      'Detective comparisons (bigger, smaller, equal)',
+      'Super logical thinking (and, or, not)',
+      'Assignment spells',
+      'Quick decision tricks'
     ]
   },
   {
     id: 'conditionals',
-    title: 'Conditionals',
-    description: 'Control program flow with if, else, and switch statements',
+    title: 'Choose Your Path',
+    description: 'Make smart choices and pick different paths in your coding adventure!',
     icon: '🔀',
     subtopics: [
-      'if/else statements',
-      'else if chains',
-      'switch statements',
-      'Truthy and falsy values',
-      'Short-circuit evaluation'
+      'Decision making (if this, then that)',
+      'Multiple choice paths (else if)',
+      'Switch between options',
+      'Truth detectors',
+      'Smart shortcuts'
     ]
   },
   {
     id: 'loops',
-    title: 'Loops',
-    description: 'Iterate with for, while, and do-while loops',
+    title: 'Repeat Spell Caster',
+    description: 'Cast powerful repeat spells to do things over and over automatically!',
     icon: '🔄',
     subtopics: [
-      'for loops',
-      'while loops',
-      'do-while loops',
-      'for...of loops',
-      'for...in loops',
-      'break and continue'
+      'Count and repeat (for loops)',
+      'Keep going while... (while loops)',
+      'Do it, then check (do-while)',
+      'Loop through collections',
+      'Explore object properties',
+      'Stop and skip commands'
     ]
   },
   {
     id: 'functions',
-    title: 'Functions',
-    description: 'Create reusable code with functions, arrow functions, and callbacks',
+    title: 'Power-Up Machines',
+    description: 'Build amazing machines that do special jobs whenever you need them!',
     icon: '⚡',
     subtopics: [
-      'Function declarations',
-      'Function expressions',
-      'Arrow functions',
-      'Parameters and arguments',
-      'Return values',
-      'Callback functions',
-      'Higher-order functions'
+      'Creating your own machines',
+      'Super-fast arrow machines',
+      'Giving machines supplies',
+      'Getting results back',
+      'Machines that use other machines',
+      'Advanced machine combos'
     ]
   },
   {
     id: 'arrays',
-    title: 'Arrays',
-    description: 'Work with arrays and array methods',
+    title: 'Collection Boxes',
+    description: 'Organize your treasures in special boxes and do cool things with them!',
     icon: '📚',
     subtopics: [
-      'Creating arrays',
-      'Accessing elements',
-      'Array methods (push, pop, shift, unshift)',
-      'Array iteration (map, filter, reduce)',
-      'Array searching (find, includes, indexOf)',
-      'Sorting and reversing'
+      'Making collection boxes',
+      'Finding things in your box',
+      'Adding and removing items',
+      'Transforming your collections',
+      'Searching for specific items',
+      'Organizing your collections'
     ]
   },
   {
     id: 'objects',
-    title: 'Objects',
-    description: 'Understand object literals, properties, and methods',
+    title: 'Character Cards',
+    description: 'Create awesome character cards with special abilities and powers!',
     icon: '🎯',
     subtopics: [
-      'Object literals',
-      'Properties and values',
-      'Methods',
-      'Accessing properties (dot vs bracket)',
-      'Object destructuring',
-      'Object methods (keys, values, entries)'
+      'Making character cards',
+      'Character stats and abilities',
+      'Special powers (methods)',
+      'Reading character info',
+      'Unpacking character data',
+      'Exploring all character details'
     ]
   },
   {
     id: 'strings',
-    title: 'String Manipulation',
-    description: 'Master string methods and template literals',
+    title: 'Word Wizard',
+    description: 'Become a word wizard and do magic tricks with text and messages!',
     icon: '📝',
     subtopics: [
-      'String methods (slice, substring, substr)',
-      'Template literals',
-      'String searching',
-      'String transformation',
-      'Regular expressions basics'
+      'Cutting and combining words',
+      'Creating message templates',
+      'Finding words in text',
+      'Changing text (uppercase, lowercase)',
+      'Pattern matching basics'
     ]
   },
   {
     id: 'dom',
-    title: 'DOM Manipulation',
-    description: 'Interact with HTML elements using JavaScript',
+    title: 'Web Page Magic',
+    description: 'Make web pages come alive by changing them with your code powers!',
     icon: '🌐',
     subtopics: [
-      'Selecting elements',
-      'Modifying content and attributes',
-      'Event listeners',
-      'Creating and removing elements',
-      'Class manipulation'
+      'Finding page elements',
+      'Changing text and colors',
+      'Listening for clicks and actions',
+      'Adding and removing things',
+      'Styling elements'
     ]
   },
   {
     id: 'async',
-    title: 'Asynchronous JavaScript',
-    description: 'Handle async operations with promises and async/await',
+    title: 'Time Travel Coding',
+    description: 'Learn to wait for things and do multiple tasks at the same time!',
     icon: '⏱️',
     subtopics: [
-      'Callbacks',
-      'Promises',
-      'async/await',
-      'Fetch API',
-      'Error handling in async code'
+      'Waiting for tasks to finish',
+      'Making and keeping promises',
+      'Modern waiting techniques',
+      'Getting data from the internet',
+      'Handling when things go wrong'
     ]
   },
   {
     id: 'classes',
-    title: 'Classes & OOP',
-    description: 'Object-oriented programming with classes and inheritance',
+    title: 'Blueprint Builder',
+    description: 'Design blueprints to create families of similar objects with superpowers!',
     icon: '🏗️',
     subtopics: [
-      'Class declarations',
-      'Constructors',
-      'Methods and properties',
-      'Inheritance',
-      'Static methods',
-      'Getters and setters'
+      'Creating blueprints',
+      'Building from blueprints',
+      'Blueprint abilities',
+      'Family trees (inheritance)',
+      'Shared superpowers',
+      'Special getters and setters'
     ]
   },
   {
     id: 'modules',
-    title: 'Modules',
-    description: 'Organize code with ES6 modules',
+    title: 'Code Organizer',
+    description: 'Keep your code tidy by organizing it into neat, reusable pieces!',
     icon: '📦',
     subtopics: [
-      'Export and import',
-      'Default exports',
-      'Named exports',
-      'Module patterns',
-      'Dynamic imports'
+      'Sharing and using code pieces',
+      'Main exports',
+      'Named code pieces',
+      'Organization patterns',
+      'Loading code when needed'
     ]
   }
 ];
